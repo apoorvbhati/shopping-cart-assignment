@@ -10,3 +10,5 @@ export const getCategory = () => async (dispatch) => {
     loader: false,
   });
 };
+
+

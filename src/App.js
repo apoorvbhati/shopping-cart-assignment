@@ -6,6 +6,7 @@ import Navigation from './routes/Navigation/navigation.component';
 import Login from './routes/Login/login';
 import Register from './routes/Register/register';
 import Footer from './routes/Footer/footer';
+import PlpPage from './routes/PLPpage/plpPage.component';
 
 import './App.css';
 
@@ -15,6 +16,7 @@ function App() {
         <Routes>
           <Route path='/' element={<Navigation />}>
             <Route index element={<Home />} />
+            <Route path="/PLP" element={<PlpPage />}></Route>
             <Route path='login' element={<Login />}/>
             <Route path='register' element={<Register />}/>
           </Route>
