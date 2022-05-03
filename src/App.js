@@ -1,29 +1,37 @@
-import { Route, Routes } from 'react-router';
-import { Fragment } from 'react';
+import React from "react";
+import "./App.css";
+import Header from "./components/header/header.component";
+import { Switch, Route } from "react-router-dom";
 
-import Home from './routes/Home/home.component';
-import Navigation from './routes/Navigation/navigation.component';
-import Login from './routes/Login/login';
-import Register from './routes/Register/register';
-import Footer from './routes/Footer/footer';
-import PlpPage from './routes/PLPpage/plpPage.component';
+import HomePage from "./pages/homePage/homePage.component";
+import Footer from "./components/footer/footer.component";
+import SignInPage from "./pages/sign-in/signInPage.component";
+import SignUpPage from "./pages/sign-up/signUpPage.component";
+import PlpPage from "./pages/PLPPage/PlpPage.component";
+import Cart from "./components/cart/cart.component";
 
-import './App.css';
+import { connect } from "react-redux";
+import { createStructuredSelector } from "reselect";
+import { selectCartHidden } from "./redux/cart/cart.selectors";
 
-function App() {
+function App({ hidden }) {
   return (
-      <Fragment>
-        <Routes>
-          <Route path='/' element={<Navigation />}>
-            <Route index element={<Home />} />
-            <Route path="/PLP" element={<PlpPage />}></Route>
-            <Route path='login' element={<Login />}/>
-            <Route path='register' element={<Register />}/>
-          </Route>
-        </Routes>
-        <Footer />
-      </Fragment>
+    <div>
+      <Header></Header>
+      {!hidden ? <Cart></Cart> : null}
+      <Switch>
+        <Route exact path="/" component={HomePage}></Route>
+        <Route path="/PLP" component={PlpPage}></Route>
+        <Route path="/login" component={SignInPage}></Route>
+        <Route path="/register" component={SignUpPage}></Route>
+      </Switch>
+      <Footer></Footer>
+    </div>
   );
 }
 
-export default App;
+const mapStateToProps = createStructuredSelector({
+  hidden: selectCartHidden,
+});
+
+export default connect(mapStateToProps)(App);
